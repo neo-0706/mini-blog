@@ -1,0 +1,473 @@
+/* ==========================================================================
+   Mini Blog — Style Sheet
+   نسخه اول: طراحی رابط کاربری خالص با HTML/CSS
+   ========================================================================== */
+
+/* ---------------------------- CSS Variables ---------------------------- */
+:root {
+  /* Colors */
+  --color-bg: #f5f7fb;
+  --color-surface: #ffffff;
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-soft: #eef0fd;
+  --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-danger-soft: #fdecec;
+  --color-warning: #f59e0b;
+  --color-warning-hover: #d97e0a;
+  --color-warning-soft: #fef3e2;
+  --color-text: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-text-faint: #9ca3af;
+  --color-border: #e5e9f2;
+
+  /* Typography */
+  --font-main: "Vazirmatn", "Segoe UI", Tahoma, sans-serif;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 0.875rem;
+  --space-md: 1.25rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+
+  /* Radius */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-soft: 0 2px 8px rgba(31, 41, 55, 0.04);
+  --shadow-card: 0 8px 24px rgba(31, 41, 55, 0.06);
+  --shadow-card-hover: 0 16px 36px rgba(31, 41, 55, 0.1);
+  --shadow-focus: 0 0 0 4px rgba(79, 70, 229, 0.15);
+
+  /* Transitions */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.18s var(--ease-standard);
+  --transition-base: 0.28s var(--ease-standard);
+}
+
+/* ------------------------------ Reset ----------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Focus visibility for keyboard users */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ------------------------------ Layout ---------------------------------- */
+.container {
+  width: 100%;
+  max-width: 760px;
+  margin-inline: auto;
+  padding: var(--space-lg) var(--space-md) var(--space-2xl);
+}
+
+/* ------------------------------ Header ---------------------------------- */
+.site-header {
+  text-align: center;
+  padding-block: var(--space-xl) var(--space-lg);
+  animation: fadeInUp 0.6s var(--ease-standard) both;
+}
+
+.site-header__eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-md);
+}
+
+.site-header__title {
+  font-size: clamp(2.25rem, 6vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+
+.site-header__subtitle {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+/* ---------------------------- Post Form Card ----------------------------- */
+.post-form-section {
+  animation: fadeInUp 0.6s var(--ease-standard) 0.08s both;
+}
+
+.post-form {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  border: 1px solid var(--color-border);
+}
+
+.post-form__heading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  background-color: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.15rem;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  box-shadow: var(--shadow-soft);
+  transition: border-color var(--transition-fast),
+    box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--color-text-faint);
+}
+
+.form-input:hover,
+.form-textarea:hover {
+  border-color: #c7cfe8;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  background-color: var(--color-surface);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 130px;
+  line-height: 1.8;
+}
+
+/* -------------------------------- Buttons -------------------------------- */
+.btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: var(--radius-pill);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Ripple-like hover effect using a radial pseudo-element */
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, transparent 60%);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+  pointer-events: none;
+}
+
+.btn:hover::after {
+  opacity: 1;
+  transform: scale(1.4);
+}
+
+/* Publish button */
+.btn--publish {
+  width: 100%;
+  padding: 1rem;
+  color: #ffffff;
+  background-color: var(--color-primary);
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.28);
+  margin-top: var(--space-xs);
+}
+
+.btn--publish:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 14px 30px rgba(79, 70, 229, 0.35);
+}
+
+/* Edit button */
+.btn--edit {
+  padding: 0.55rem 1.15rem;
+  font-size: 0.85rem;
+  color: var(--color-warning);
+  background-color: var(--color-warning-soft);
+}
+
+.btn--edit:hover {
+  color: #ffffff;
+  background-color: var(--color-warning-hover);
+}
+
+/* Delete button */
+.btn--delete {
+  padding: 0.55rem 1.15rem;
+  font-size: 0.85rem;
+  color: var(--color-danger);
+  background-color: var(--color-danger-soft);
+}
+
+.btn--delete:hover {
+  color: #ffffff;
+  background-color: var(--color-danger-hover);
+}
+
+/* ------------------------------ Posts Section ---------------------------- */
+.posts-section {
+  margin-top: var(--space-xl);
+}
+
+.posts-section__head {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.posts-section__title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.posts-count {
+  color: var(--color-text-faint);
+  font-weight: 600;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+/* -------------------------------- Post Card ------------------------------ */
+.post-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  animation: fadeInUp 0.5s var(--ease-standard) both;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.post-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.post-card__avatar {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+}
+
+.post-card__meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card__author {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.post-card__date {
+  font-size: 0.78rem;
+  color: var(--color-text-faint);
+}
+
+.post-card__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.post-card__excerpt {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.post-card__actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+/* ------------------------------- Empty State ------------------------------ */
+.empty-state {
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+  background-color: var(--color-surface);
+  border: 1.5px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.empty-state__text {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+/* -------------------------------- Animations ------------------------------ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger post card entrance slightly */
+.post-card:nth-child(1) { animation-delay: 0.05s; }
+.post-card:nth-child(2) { animation-delay: 0.1s; }
+.post-card:nth-child(3) { animation-delay: 0.15s; }
+.post-card:nth-child(4) { animation-delay: 0.2s; }
+.post-card:nth-child(5) { animation-delay: 0.25s; }
+
+/* ------------------------------ Responsive -------------------------------- */
+
+/* Tablet and up */
+@media (min-width: 640px) {
+  .container {
+    padding-inline: var(--space-lg);
+  }
+
+  .post-card__actions {
+    align-self: flex-end;
+  }
+}
+
+/* Laptop and up: two-column post grid */
+@media (min-width: 860px) {
+  .container {
+    max-width: 900px;
+  }
+
+  .posts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1040px;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

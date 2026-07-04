@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Blog | فضایی برای نوشتن</title>
+
+  <!-- Google Fonts: Vazirmatn (فارسی) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ===================== Header ===================== -->
+    <header class="site-header">
+      <p class="site-header__eyebrow">نسخه ۱.۰ — رابط کاربری</p>
+      <h1 class="site-header__title">Mini Blog</h1>
+      <p class="site-header__subtitle" style="direction:ltr;">Share your thoughts...</p>
+    </header>
+
+    <!-- ===================== Post Form ===================== -->
+    <section class="post-form-section" aria-labelledby="new-post-heading">
+      <form class="post-form" id="post-form" novalidate>
+
+        <h2 id="new-post-heading" class="post-form__heading">پست جدید</h2>
+
+        <div class="form-group">
+          <label class="form-label" for="author-input">نویسنده</label>
+          <input
+            class="form-input"
+            type="text"
+            id="author-input"
+            name="author"
+            placeholder="نام شما..."
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="title-input">عنوان پست</label>
+          <input
+            class="form-input"
+            type="text"
+            id="title-input"
+            name="title"
+            placeholder="عنوانی جذاب برای نوشته‌ات بنویس..."
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="content-input">متن پست</label>
+          <textarea
+            class="form-textarea"
+            id="content-input"
+            name="content"
+            rows="5"
+            placeholder="افکارت را اینجا بنویس..."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--publish" id="publish-btn">
+          <span class="btn__label">انتشار پست</span>
+        </button>
+
+      </form>
+    </section>
+
+    <!-- ===================== Posts List ===================== -->
+    <section class="posts-section" aria-labelledby="posts-heading">
+
+      <div class="posts-section__head">
+        <h2 id="posts-heading" class="posts-section__title">
+          Posts <span class="posts-count" id="posts-count">(5)</span>
+        </h2>
+      </div>
+
+      <div class="posts-grid" id="posts-list">
+
+        <!-- Post Card #1 -->
+        <article class="post-card" data-post-id="1">
+          <div class="post-card__header">
+            <div class="post-card__avatar" aria-hidden="true">ر</div>
+            <div class="post-card__meta">
+              <h3 class="post-card__author">رها احمدی</h3>
+              <span class="post-card__date">۱۴ تیر ۱۴۰۴</span>
+            </div>
+          </div>
+
+          <h4 class="post-card__title">شروع یک عادت جدید</h4>
+          <p class="post-card__excerpt">
+            هر روز صبح فقط ده دقیقه وقت بگذار؛ نتیجه‌ی این ده دقیقه‌ها بعد از یک سال شگفت‌انگیز خواهد بود...
+          </p>
+
+          <div class="post-card__actions">
+            <button type="button" class="btn btn--edit" data-action="edit" data-post-id="1">
+              <span class="btn__label">ویرایش</span>
+            </button>
+            <button type="button" class="btn btn--delete" data-action="delete" data-post-id="1">
+              <span class="btn__label">حذف</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Post Card #2 -->
+        <article class="post-card" data-post-id="2">
+          <div class="post-card__header">
+            <div class="post-card__avatar" aria-hidden="true">آ</div>
+            <div class="post-card__meta">
+              <h3 class="post-card__author">آرمان کریمی</h3>
+              <span class="post-card__date">۱۲ تیر ۱۴۰۴</span>
+            </div>
+          </div>
+
+          <h4 class="post-card__title">طراحی مینیمال چیست؟</h4>
+          <p class="post-card__excerpt">
+            کمتر یعنی بیشتر؛ حذف هر چیز غیرضروری، فضا را برای چیزهایی که واقعاً مهم هستند باز می‌کند...
+          </p>
+
+          <div class="post-card__actions">
+            <button type="button" class="btn btn--edit" data-action="edit" data-post-id="2">
+              <span class="btn__label">ویرایش</span>
+            </button>
+            <button type="button" class="btn btn--delete" data-action="delete" data-post-id="2">
+              <span class="btn__label">حذف</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Post Card #3 -->
+        <article class="post-card" data-post-id="3">
+          <div class="post-card__header">
+            <div class="post-card__avatar" aria-hidden="true">س</div>
+            <div class="post-card__meta">
+              <h3 class="post-card__author">سارا محمدی</h3>
+              <span class="post-card__date">۰۹ تیر ۱۴۰۴</span>
+            </div>
+          </div>
+
+          <h4 class="post-card__title">یادداشت‌هایی درباره‌ی تمرکز</h4>
+          <p class="post-card__excerpt">
+            تمرکز یک مهارت است، نه یک استعداد ذاتی؛ و مثل هر مهارت دیگری با تمرین روزانه تقویت می‌شود...
+          </p>
+
+          <div class="post-card__actions">
+            <button type="button" class="btn btn--edit" data-action="edit" data-post-id="3">
+              <span class="btn__label">ویرایش</span>
+            </button>
+            <button type="button" class="btn btn--delete" data-action="delete" data-post-id="3">
+              <span class="btn__label">حذف</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Post Card #4 -->
+        <article class="post-card" data-post-id="4">
+          <div class="post-card__header">
+            <div class="post-card__avatar" aria-hidden="true">م</div>
+            <div class="post-card__meta">
+              <h3 class="post-card__author">مهدی رضایی</h3>
+              <span class="post-card__date">۰۵ تیر ۱۴۰۴</span>
+            </div>
+          </div>
+
+          <h4 class="post-card__title">چرا باید هر روز بنویسیم</h4>
+          <p class="post-card__excerpt">
+            نوشتن روزانه ذهن را شفاف می‌کند و به ما اجازه می‌دهد افکار پراکنده را به ایده‌های منسجم تبدیل کنیم...
+          </p>
+
+          <div class="post-card__actions">
+            <button type="button" class="btn btn--edit" data-action="edit" data-post-id="4">
+              <span class="btn__label">ویرایش</span>
+            </button>
+            <button type="button" class="btn btn--delete" data-action="delete" data-post-id="4">
+              <span class="btn__label">حذف</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Post Card #5 -->
+        <article class="post-card" data-post-id="5">
+          <div class="post-card__header">
+            <div class="post-card__avatar" aria-hidden="true">ن</div>
+            <div class="post-card__meta">
+              <h3 class="post-card__author">نیلوفر حسینی</h3>
+              <span class="post-card__date">۰۱ تیر ۱۴۰۴</span>
+            </div>
+          </div>
+
+          <h4 class="post-card__title">سفری کوتاه به دنیای رنگ‌ها</h4>
+          <p class="post-card__excerpt">
+            انتخاب پالت رنگی درست می‌تواند حس یک محصول را کاملاً تغییر دهد؛ رنگ‌ها زبان بی‌کلام طراحی هستند...
+          </p>
+
+          <div class="post-card__actions">
+            <button type="button" class="btn btn--edit" data-action="edit" data-post-id="5">
+              <span class="btn__label">ویرایش</span>
+            </button>
+            <button type="button" class="btn btn--delete" data-action="delete" data-post-id="5">
+              <span class="btn__label">حذف</span>
+            </button>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Empty state (hidden by default, ready for future JS) -->
+      <div class="empty-state" id="empty-state" hidden>
+        <p class="empty-state__text">هنوز پستی منتشر نشده. اولین نوشته‌ات را به اشتراک بگذار!</p>
+      </div>
+
+    </section>
+
+  </div>
+
+</body>
+</html>
