@@ -1,18 +1,28 @@
 import { Post } from "./post.js";
 
 export class MiniBlog {
-    constructor(postList) {
+    constructor(
+        postList,
+        form,
+        titleInput,
+        authorInput,
+        contentInput
+    ) {
         this.postList = postList;
+        this.form = form;
+        this.titleInput = titleInput;
+        this.authorInput = authorInput;
+        this.contentInput = contentInput;
 
         this.posts = [
-            new Post (
+            new Post(
                 1,
                 'test',
                 'test title',
                 'lorem ipsum',
                 Date.now(),
             ),
-            new Post (
+            new Post(
                 1,
                 'test',
                 'test title',
@@ -22,7 +32,11 @@ export class MiniBlog {
         ];
     }
 
+    init() {
+        this.renderPosts()
 
+        this.bindEvents()
+    }
     renderPost(post) {
         const article = document.createElement('article');
         article.className = 'post-card';
@@ -52,10 +66,10 @@ export class MiniBlog {
         this.postList.appendChild(article);
     }
 
-    renderPosts(posts) {
+    renderPosts() {
         this.postList.innerHTML = "";
 
-        posts.forEach(post => this.renderPost(post));
+        this.posts.forEach(post => this.renderPost(post));
     }
 
     addPost(post) {
@@ -63,6 +77,34 @@ export class MiniBlog {
             throw new Error("Invalid Post");
         }
         this.posts.push(post);
-        this.renderPosts(this.posts);
+        this.renderPosts();
+    }
+
+    clearFields() {
+        this.titleInput.value = '';
+        this.authorInput.value = '';
+        this.contentInput.value = '';
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        const title = this.titleInput.value;
+        const author = this.authorInput.value;
+        const content = this.contentInput.value;
+
+        const date = new Date().getFullYear();
+        const id = this.posts.length + 1;
+
+        const post = new Post(id, author, title, content, date);
+
+        this.addPost(post);
+        this.clearFields();
+    }
+
+    bindEvents() {
+        this.form.addEventListener('submit', (e) => {
+            this.handleSubmit(e);
+        });
     }
 }
