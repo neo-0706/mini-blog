@@ -7,13 +7,17 @@ export class MiniBlog {
         form,
         titleInput,
         authorInput,
-        contentInput
+        contentInput,
+        fieldError
     ) {
         this.postList = postList;
         this.form = form;
+
         this.titleInput = titleInput;
         this.authorInput = authorInput;
         this.contentInput = contentInput;
+
+        this.fieldError = fieldError;
 
         this.validator = new Validator();
 
@@ -110,32 +114,39 @@ export class MiniBlog {
     handleSubmit(e) {
         e.preventDefault();
 
-        const title = this.titleInput.value.trim();
-        const author = this.authorInput.value.trim();
-        const content = this.contentInput.value.trim();
+        // پاک کردن خطاهای قبلی
+        this.fieldError.clearAll();
 
-        const validation = this.validateForm(
-            title,
-            author,
-            content
-        );
+        const formData = {
+            title: this.titleInput.value.trim(),
+            author: this.authorInput.value.trim(),
+            content: this.contentInput.value.trim(),
+        };
+
+        const validation = this.validateForm(formData);
 
         if (!validation.isValid) {
-            alert(validation.message);
+            this.fieldError.show(
+                validation.field,
+                validation.message
+            );
+
             return;
         }
 
         const post = new Post(
             this.posts.length + 1,
-            author,
-            title,
-            content,
+            formData.author,
+            formData.title,
+            formData.content,
             new Date().toLocaleDateString("fa-IR")
         );
 
         this.addPost(post);
 
         this.clearFields();
+
+        this.fieldError.clearAll();
     }
 
     bindEvents() {
@@ -145,39 +156,48 @@ export class MiniBlog {
         );
     }
 
-    validateForm(title, author, content) {
-
-        const titleValidation = this.validator.validate({
-            value: title,
-            fieldName: "Title",
-            minLength: 5,
-            maxLength: 40,
-        });
-
-        if (!titleValidation.isValid) {
-            return titleValidation;
-        }
+    validateForm(formData) {
 
         const authorValidation = this.validator.validate({
-            value: author,
+            value: formData.author,
             fieldName: "Author",
             minLength: 3,
             maxLength: 30,
         });
 
         if (!authorValidation.isValid) {
-            return authorValidation;
+            return {
+                ...authorValidation,
+                field: "author",
+            };
+        }
+
+        const titleValidation = this.validator.validate({
+            value: formData.title,
+            fieldName: "Title",
+            minLength: 5,
+            maxLength: 40,
+        });
+
+        if (!titleValidation.isValid) {
+            return {
+                ...titleValidation,
+                field: "title",
+            };
         }
 
         const contentValidation = this.validator.validate({
-            value: content,
+            value: formData.content,
             fieldName: "Content",
-            minLength: 15,
+            minLength: 10,
             maxLength: 280,
         });
 
         if (!contentValidation.isValid) {
-            return contentValidation;
+            return {
+                ...contentValidation,
+                field: "content",
+            };
         }
 
         return this.validator.success();

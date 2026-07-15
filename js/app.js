@@ -1,14 +1,28 @@
 import { MiniBlog } from "./miniBlog.js";
+import { FieldError } from "./fieldError.js";
 
-const postList = document.getElementById('posts-list');
-const publishBtn = document.getElementById('publish-btn');
-const form = document.getElementById('post-form')
-const title = document.getElementById('title-input');
-const author = document.getElementById('author-input');
-const content = document.getElementById('content-input');
+const blog = new MiniBlog(
+    document.getElementById("posts-list"),
+    document.getElementById("post-form"),
+    document.getElementById("title-input"),
+    document.getElementById("author-input"),
+    document.getElementById("content-input"),
+    new FieldError({
+        title: {
+            input: document.getElementById("title-input"),
+            error: document.querySelector('[data-error="title"]'),
+        },
 
-const blog = new MiniBlog(postList, form, title, author, content);
+        author: {
+            input: document.getElementById("author-input"),
+            error: document.querySelector('[data-error="author"]'),
+        },
+
+        content: {
+            input: document.getElementById("content-input"),
+            error: document.querySelector('[data-error="content"]'),
+        }
+    })
+);
 
 blog.init();
-
-
