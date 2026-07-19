@@ -37,6 +37,29 @@ export class MiniBlog {
                 Date.now()
             )
         ];
+
+        this.fields = [
+            {
+                input: this.titleInput,
+                field: "title",
+                min: 5,
+                max: 40
+            },
+
+            {
+                input: this.authorInput,
+                field: "author",
+                min: 3,
+                max: 30
+            },
+
+            {
+                input: this.contentInput,
+                field: "content",
+                min: 10,
+                max: 280
+            }
+        ];
     }
 
     init() {
@@ -146,7 +169,7 @@ export class MiniBlog {
 
         this.clearFields();
 
-        this.fieldError.clearAll();
+        // this.showSuccess();
     }
 
     bindEvents() {
@@ -154,6 +177,20 @@ export class MiniBlog {
             "submit",
             this.handleSubmit.bind(this)
         );
+
+        this.fields.forEach(field => {
+            field.input.addEventListener(
+                "input",
+                () => {
+                    this.validateField(
+                        field.input,
+                        field.field,
+                        field.min,
+                        field.max
+                    )
+                }
+            )
+        })
     }
 
     validateForm(formData) {
@@ -201,5 +238,21 @@ export class MiniBlog {
         }
 
         return this.validator.success();
+    }
+
+    validateField(input, fieldName, minLength, maxLength) {
+        const value = input.value.trim();
+        const result = this.validator.validate({
+            value: value,
+            fieldName: fieldName,
+            minLength: minLength,
+            maxLength: maxLength,
+        });
+
+        if (result.isValid) {
+            this.fieldError.clear(fieldName);
+        } else {
+            this.fieldError.show(fieldName, result.message);
+        }
     }
 }
