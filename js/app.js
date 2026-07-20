@@ -1,5 +1,10 @@
 import { MiniBlog } from "./miniBlog.js";
 import { FieldError } from "./fieldError.js";
+import { Notification } from "./notification.js";
+
+const notification = new Notification(
+    document.getElementById("notification-container")
+);
 
 const blog = new MiniBlog(
     document.getElementById("posts-list"),
@@ -7,6 +12,7 @@ const blog = new MiniBlog(
     document.getElementById("title-input"),
     document.getElementById("author-input"),
     document.getElementById("content-input"),
+    notification,
     new FieldError({
         title: {
             input: document.getElementById("title-input"),

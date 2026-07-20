@@ -1,6 +1,5 @@
 import { Post } from "./post.js";
 import { Validator } from "./validator.js";
-
 export class MiniBlog {
     constructor(
         postList,
@@ -8,6 +7,7 @@ export class MiniBlog {
         titleInput,
         authorInput,
         contentInput,
+        notification,
         fieldError
     ) {
         this.postList = postList;
@@ -16,6 +16,8 @@ export class MiniBlog {
         this.titleInput = titleInput;
         this.authorInput = authorInput;
         this.contentInput = contentInput;
+
+        this.notification = notification;
 
         this.fieldError = fieldError;
 
@@ -169,7 +171,7 @@ export class MiniBlog {
 
         this.clearFields();
 
-        // this.showSuccess();
+        this.notification.success("پست با موفقیت ایجاد شد.");
     }
 
     bindEvents() {
