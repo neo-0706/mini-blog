@@ -9,6 +9,8 @@ export class MiniBlog {
         contentInput,
         characterCounter,
         postsCount,
+        submitButton,
+        cancelEditButton,
         notification,
         fieldError
     ) {
@@ -28,6 +30,10 @@ export class MiniBlog {
         this.fieldError = fieldError;
 
         this.editingPostId = null;
+
+        this.submitButton = submitButton;
+
+        this.cancelEditButton = cancelEditButton;
 
         this.validator = new Validator();
 
@@ -184,8 +190,9 @@ export class MiniBlog {
             );
 
             this.addPost(post);
+            this.setCreateMode();
             this.clearFields();
-    
+
             this.notification.success("پست با موفقیت ایجاد شد.");
         }
 
@@ -219,6 +226,14 @@ export class MiniBlog {
             'click',
             this.handlePostActions.bind(this)
         )
+
+        this.cancelEditButton.addEventListener("click", () => {
+            this.editingPostId = null;
+            this.clearFields();
+            this.updateCharacterCounter();
+            this.setCreateMode();
+            this.notification.info("ویرایش لغو شد.");
+        });
     }
 
     validateForm(formData) {
@@ -341,6 +356,7 @@ export class MiniBlog {
 
         this.editingPostId = post.id;
 
+        this.setEditMode();
     }
 
     updatePost(id, formData) {
@@ -355,5 +371,17 @@ export class MiniBlog {
 
         this.clearFields();
         this.updateCharacterCounter();
+
+        this.setCreateMode();
+    }
+
+    setEditMode() {
+        this.submitButton.textContent = "ذخیره تغییرات";
+        this.cancelEditButton.classList.remove("hidden");
+    }
+
+    setCreateMode() {
+        this.submitButton.textContent = "انتشار پست";
+        this.cancelEditButton.classList.add('hidden');
     }
 }
