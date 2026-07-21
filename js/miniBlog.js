@@ -27,6 +27,8 @@ export class MiniBlog {
 
         this.fieldError = fieldError;
 
+        this.editingPostId = null;
+
         this.validator = new Validator();
 
         this.posts = [
@@ -167,19 +169,26 @@ export class MiniBlog {
             return;
         }
 
-        const post = new Post(
-            this.posts.length + 1,
-            formData.author,
-            formData.title,
-            formData.content,
-            new Date().toLocaleDateString("fa-IR")
-        );
+        if (this.editingPostId !== null) {
+            this.updatePost(
+                this.editingPostId,
+                formData
+            );
+        } else {
+            const post = new Post(
+                this.posts.length + 1,
+                formData.author,
+                formData.title,
+                formData.content,
+                new Date().toLocaleDateString("fa-IR")
+            );
 
-        this.addPost(post);
+            this.addPost(post);
+            this.clearFields();
+    
+            this.notification.success("پست با موفقیت ایجاد شد.");
+        }
 
-        this.clearFields();
-
-        this.notification.success("پست با موفقیت ایجاد شد.");
     }
 
     bindEvents() {
@@ -208,7 +217,7 @@ export class MiniBlog {
 
         this.postList.addEventListener(
             'click',
-             this.handlePostActions.bind(this)
+            this.handlePostActions.bind(this)
         )
     }
 
@@ -318,7 +327,33 @@ export class MiniBlog {
         }
 
         if (action === "edit") {
-            console.log("Edit:", postId);
+            this.editPost(postId);
         }
+    }
+
+    editPost(id) {
+        const post = this.posts.find(post => post.id === id);
+
+        this.authorInput.value = post.author;
+        this.titleInput.value = post.title;
+        this.contentInput.value = post.content;
+        this.notification.info("اطلاعات پست برای تغییر در فیلد ها قرار داده شد!");
+
+        this.editingPostId = post.id;
+
+    }
+
+    updatePost(id, formData) {
+        const post = this.posts.find(post => post.id === id);
+        post.author = formData.author;
+        post.title = formData.title;
+        post.content = formData.content;
+
+        this.refreshUI();
+        this.notification.success('پست با موفقیت تغییر کرد');
+        this.editingPostId = null;
+
+        this.clearFields();
+        this.updateCharacterCounter();
     }
 }
