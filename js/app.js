@@ -14,6 +14,8 @@ const blog = new MiniBlog(
     document.getElementById("content-input"),
     document.getElementById('content-counter'),
     document.getElementById('posts-count'),
+    document.getElementById('submit_button'),
+    document.getElementById('cancel-edit-btn'),
     notification,
     new FieldError({
         title: {
