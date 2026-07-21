@@ -134,8 +134,8 @@ export class MiniBlog {
         }
 
         this.posts.push(post);
-        this.updatePostsCount();
-        this.renderPosts();
+
+        this.refreshUI();
     }
 
     clearFields() {
@@ -179,8 +179,6 @@ export class MiniBlog {
 
         this.clearFields();
 
-        this.updateCharacterCounter();
-
         this.notification.success("پست با موفقیت ایجاد شد.");
     }
 
@@ -208,18 +206,10 @@ export class MiniBlog {
             this.updateCharacterCounter();
         });
 
-        this.postList.addEventListener('click', (e) => {
-            const deleteButton = e.target.closest('button');
-            if (!deleteButton) return;
-
-            if (deleteButton.dataset.action !== "delete") return;
-
-            const postId = Number(deleteButton.dataset.postId);
-
-            this.deletePost(postId);
-
-            this.notification.success("پست با موفقیت حذف شد.");
-        })
+        this.postList.addEventListener(
+            'click',
+             this.handlePostActions.bind(this)
+        )
     }
 
     validateForm(formData) {
@@ -305,7 +295,30 @@ export class MiniBlog {
     deletePost(id) {
         this.posts = this.posts.filter(post => post.id !== id);
 
-        this.updatePostsCount();
+        this.refreshUI();
+    }
+
+    refreshUI() {
         this.renderPosts();
+        this.updatePostsCount();
+        this.updateCharacterCounter();
+    }
+
+    handlePostActions(e) {
+        const button = e.target.closest("button");
+
+        if (!button) return;
+
+        const action = button.dataset.action;
+        const postId = Number(button.dataset.postId);
+
+        if (action === "delete") {
+            this.deletePost(postId);
+            this.notification.success("پست با موفقیت حذف شد.");
+        }
+
+        if (action === "edit") {
+            console.log("Edit:", postId);
+        }
     }
 }
