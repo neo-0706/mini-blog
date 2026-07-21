@@ -48,9 +48,16 @@
 
         <div class="form-group">
           <label class="form-label" for="content-input">متن پست</label>
-          <textarea class="form-textarea" id="content-input" name="content" rows="5"
+          <textarea class="form-textarea" id="content-input" maxlength="280" name="content" rows="5"
             placeholder="افکارت را اینجا بنویس..."></textarea>
-          <small class="error-message" data-error="content"></small>
+
+          <div class="field-footer">
+            <small data-error="content" class="error-message"></small>
+
+            <small id="content-counter" class="character-counter">
+              0 / 280
+            </small>
+          </div>
         </div>
 
         <button type="submit" class="btn btn--publish" id="publish-btn">

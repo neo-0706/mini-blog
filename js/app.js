@@ -12,6 +12,8 @@ const blog = new MiniBlog(
     document.getElementById("title-input"),
     document.getElementById("author-input"),
     document.getElementById("content-input"),
+    document.getElementById('content-counter'),
+    document.getElementById('posts-count'),
     notification,
     new FieldError({
         title: {

@@ -7,6 +7,8 @@ export class MiniBlog {
         titleInput,
         authorInput,
         contentInput,
+        characterCounter,
+        postsCount,
         notification,
         fieldError
     ) {
@@ -18,6 +20,10 @@ export class MiniBlog {
         this.contentInput = contentInput;
 
         this.notification = notification;
+
+        this.characterCounter = characterCounter;
+
+        this.postsCount = postsCount;
 
         this.fieldError = fieldError;
 
@@ -66,6 +72,8 @@ export class MiniBlog {
 
     init() {
         this.renderPosts();
+        this.updatePostsCount();
+        this.updateCharacterCounter();
         this.bindEvents();
     }
 
@@ -126,7 +134,7 @@ export class MiniBlog {
         }
 
         this.posts.push(post);
-
+        this.updatePostsCount();
         this.renderPosts();
     }
 
@@ -171,6 +179,8 @@ export class MiniBlog {
 
         this.clearFields();
 
+        this.updateCharacterCounter();
+
         this.notification.success("پست با موفقیت ایجاد شد.");
     }
 
@@ -192,7 +202,11 @@ export class MiniBlog {
                     )
                 }
             )
-        })
+        });
+
+        this.contentInput.addEventListener("input", () => {
+            this.updateCharacterCounter();
+        });
     }
 
     validateForm(formData) {
@@ -256,5 +270,22 @@ export class MiniBlog {
         } else {
             this.fieldError.show(fieldName, result.message);
         }
+    }
+
+    updateCharacterCounter() {
+        const text = this.contentInput.value;
+        const lengthText = text.length;
+        this.characterCounter.textContent = `${lengthText} / 280`;
+        this.characterCounter.classList.remove("warning", "error");
+        if (lengthText >= 280) {
+            this.characterCounter.classList.add('error');
+        }else if (lengthText >= 224) {
+            this.characterCounter.classList.add('warning');
+        }
+    }
+
+    updatePostsCount() {
+        const numberOfPosts = this.posts.length;
+        this.postsCount.textContent = `(${numberOfPosts})`;
     }
 }

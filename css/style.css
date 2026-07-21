@@ -643,3 +643,29 @@ textarea:focus-visible {
     }
 
 }
+
+.field-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: .4rem;
+}
+
+.character-counter {
+    font-size: .85rem;
+    color: #777;
+    user-select: none;
+}
+
+.character-counter {
+    color: #777;
+    transition: color .2s;
+}
+
+.character-counter.warning {
+    color: #f59e0b;
+}
+
+.character-counter.error {
+    color: #ef4444;
+}
