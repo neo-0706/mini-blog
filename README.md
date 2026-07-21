@@ -1,14 +1,14 @@
 # Mini Blog
 
-A modern **Mini Blog** application built step by step using **HTML**, **CSS**, **Vanilla JavaScript**, and later **FastAPI**.
+A modern **Mini Blog** application built step by step using **HTML**, **CSS**, and **Vanilla JavaScript**, with a future migration to **FastAPI** for the backend.
 
-This project starts as a frontend-only application and gradually evolves into a complete full-stack blog while following clean architecture, meaningful Git commits, and best development practices.
+The goal of this project is not only to build a blog application, but also to practice writing clean, maintainable code using object-oriented JavaScript, modular architecture, and a professional Git workflow.
 
 ---
 
 ## Preview
 
-> UI Version (Frontend Only)
+> Frontend Version
 
 ---
 
@@ -16,21 +16,26 @@ This project starts as a frontend-only application and gradually evolves into a 
 
 ### Current
 
-- Responsive modern UI
-- Semantic HTML5 structure
-- CSS Variables
-- Flexbox & CSS Grid
-- Accessible form structure
-- Modern animations and transitions
+- ✅ Create posts
+- ✅ Edit existing posts
+- ✅ Delete posts
+- ✅ Cancel editing mode
+- ✅ Client-side form validation
+- ✅ Real-time field validation
+- ✅ Character counter with warning states
+- ✅ Dynamic posts counter
+- ✅ Animated notification system
+- ✅ Responsive modern UI
+- ✅ Semantic HTML5
+- ✅ CSS Variables
+- ✅ Flexbox & CSS Grid
+- ✅ Modular ES6 JavaScript
+- ✅ Object-Oriented Design (OOP)
 
-### Planned
+### Upcoming
 
-- Create posts
-- Edit posts
-- Delete posts
-- Form validation
-- Local Storage
-- REST API
+- Local Storage persistence
+- REST API integration
 - FastAPI backend
 - SQLite / PostgreSQL
 - JWT Authentication
@@ -44,34 +49,39 @@ This project starts as a frontend-only application and gradually evolves into a 
 
 - HTML5
 - CSS3
-- Vanilla JavaScript
+- Vanilla JavaScript (ES Modules)
+- Object-Oriented JavaScript (OOP)
 
-### Backend (Upcoming)
+### Backend (Planned)
 
 - FastAPI
 - SQLAlchemy
 - SQLite
 - PostgreSQL
+- JWT Authentication
 
 ---
 
 ## Project Structure
 
-```
+```text
 mini-blog/
+│
+├── assets/
 │
 ├── css/
 │   └── style.css
 │
 ├── js/
-│   └── app.js
-│
-├── assets/
+│   ├── app.js
+│   ├── miniBlog.js
+│   ├── post.js
+│   ├── validator.js
+│   ├── fieldError.js
+│   └── notification.js
 │
 ├── index.html
-│
 ├── README.md
-│
 └── .gitignore
 ```
 
@@ -85,7 +95,7 @@ Clone the repository
 git clone https://github.com/YOUR_USERNAME/mini-blog.git
 ```
 
-Open the project
+Enter the project directory
 
 ```bash
 cd mini-blog
@@ -101,36 +111,72 @@ or simply open `index.html` in your browser.
 
 ---
 
+## Current Capabilities
+
+- Create new blog posts
+- Edit existing posts
+- Delete posts
+- Cancel editing mode
+- Validate form inputs
+- Display inline validation errors
+- Show animated notifications
+- Count post characters in real time
+- Display the total number of posts
+- Responsive interface
+
+---
+
 ## Roadmap
 
-- [x] Design responsive UI
-- [ ] Render posts dynamically
-- [ ] Create posts
-- [ ] Edit posts
-- [ ] Delete posts
+- [x] Responsive UI
+- [x] Render posts dynamically
+- [x] Create posts
+- [x] Edit posts
+- [x] Delete posts
+- [x] Form validation
+- [x] Notification system
 - [ ] Store posts in Local Storage
 - [ ] Build REST API with FastAPI
 - [ ] Connect frontend to backend
-- [ ] Authentication
+- [ ] JWT Authentication
 - [ ] Deploy application
 
 ---
 
-## Goals
+## Learning Goals
 
 This project is built to practice:
 
-- Clean HTML & CSS
+- Semantic HTML
+- Modern CSS
+- Responsive Design
 - Vanilla JavaScript
+- ES Modules
+- Object-Oriented Programming (OOP)
 - DOM Manipulation
 - CRUD Operations
+- Form Validation
+- Event Delegation
 - Git & GitHub Workflow
-- REST APIs
+- REST API Development
 - FastAPI
 - Database Design
 
 ---
 
+## Future Improvements
+
+- Persist posts using Local Storage
+- Search posts
+- Filter and sort posts
+- Dark mode
+- Markdown support
+- Image upload
+- User authentication
+- Backend integration
+
+---
+
 ## License
 
-This project is created for learning and portfolio purposes.
+This project is created for learning, practice, and portfolio purposes.
