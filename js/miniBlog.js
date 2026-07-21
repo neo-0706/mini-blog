@@ -207,6 +207,19 @@ export class MiniBlog {
         this.contentInput.addEventListener("input", () => {
             this.updateCharacterCounter();
         });
+
+        this.postList.addEventListener('click', (e) => {
+            const deleteButton = e.target.closest('button');
+            if (!deleteButton) return;
+
+            if (deleteButton.dataset.action !== "delete") return;
+
+            const postId = Number(deleteButton.dataset.postId);
+
+            this.deletePost(postId);
+
+            this.notification.success("پست با موفقیت حذف شد.");
+        })
     }
 
     validateForm(formData) {
@@ -279,7 +292,7 @@ export class MiniBlog {
         this.characterCounter.classList.remove("warning", "error");
         if (lengthText >= 280) {
             this.characterCounter.classList.add('error');
-        }else if (lengthText >= 224) {
+        } else if (lengthText >= 224) {
             this.characterCounter.classList.add('warning');
         }
     }
@@ -287,5 +300,12 @@ export class MiniBlog {
     updatePostsCount() {
         const numberOfPosts = this.posts.length;
         this.postsCount.textContent = `(${numberOfPosts})`;
+    }
+
+    deletePost(id) {
+        this.posts = this.posts.filter(post => post.id !== id);
+
+        this.updatePostsCount();
+        this.renderPosts();
     }
 }
