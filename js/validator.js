@@ -56,10 +56,10 @@ export class Validator {
         return this.success();
     }
 
-    success() {
+    success(message = "") {
         return {
             isValid: true,
-            message: "",
+            message
         };
     }
 

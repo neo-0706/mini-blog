@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,20 +9,18 @@
   <!-- Google Fonts: Vazirmatn (فارسی) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
 
   <link rel="stylesheet" href="./css/style.css" />
 </head>
+
 <body>
 
   <div class="container">
 
     <!-- ===================== Header ===================== -->
     <header class="site-header">
-      <p class="site-header__eyebrow">نسخه ۱.۰ — رابط کاربری</p>
       <h1 class="site-header__title">Mini Blog</h1>
       <p class="site-header__subtitle" style="direction:ltr;">Share your thoughts...</p>
     </header>
@@ -34,40 +33,30 @@
 
         <div class="form-group">
           <label class="form-label" for="author-input">نویسنده</label>
-          <input
-            class="form-input"
-            type="text"
-            id="author-input"
-            name="author"
-            placeholder="نام شما..."
-            autocomplete="off"
-          />
+          <input class="form-input" type="text" id="author-input" name="author" placeholder="نام شما..."
+            autocomplete="off" />
           <small class="error-message" data-error="author"></small>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="title-input">عنوان پست</label>
-          <input
-            class="form-input"
-            type="text"
-            id="title-input"
-            name="title"
-            placeholder="عنوانی جذاب برای نوشته‌ات بنویس..."
-            autocomplete="off"
-          />
+          <input class="form-input" type="text" id="title-input" name="title"
+            placeholder="عنوانی جذاب برای نوشته‌ات بنویس..." autocomplete="off" />
           <small class="error-message" data-error="title"></small>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="content-input">متن پست</label>
-          <textarea
-            class="form-textarea"
-            id="content-input"
-            name="content"
-            rows="5"
-            placeholder="افکارت را اینجا بنویس..."
-          ></textarea>
-          <small class="error-message" data-error="content"></small>
+          <textarea class="form-textarea" id="content-input" maxlength="280" name="content" rows="5"
+            placeholder="افکارت را اینجا بنویس..."></textarea>
+
+          <div class="field-footer">
+            <small data-error="content" class="error-message"></small>
+
+            <small id="content-counter" class="character-counter">
+              0 / 280
+            </small>
+          </div>
         </div>
 
         <button type="submit" class="btn btn--publish" id="publish-btn">
@@ -76,6 +65,10 @@
 
       </form>
     </section>
+
+    <div id="notification-container">
+    </div>
+
 
     <!-- ===================== Posts List ===================== -->
     <section class="posts-section" aria-labelledby="posts-heading">
@@ -87,33 +80,6 @@
       </div>
 
       <div class="posts-grid" id="posts-list">
-
-        <!-- Post Card #1 -->
-        <!-- <article class="post-card" data-post-id="1">
-          <div class="post-card__header">
-            <div class="post-card__avatar" aria-hidden="true">ر</div>
-            <div class="post-card__meta">
-              <h3 class="post-card__author">رها احمدی</h3>
-              <span class="post-card__date">۱۴ تیر ۱۴۰۴</span>
-            </div>
-          </div>
-
-          <h4 class="post-card__title">شروع یک عادت جدید</h4>
-          <p class="post-card__excerpt">
-            هر روز صبح فقط ده دقیقه وقت بگذار؛ نتیجه‌ی این ده دقیقه‌ها بعد از یک سال شگفت‌انگیز خواهد بود...
-          </p>
-
-          <div class="post-card__actions">
-            <button type="button" class="btn btn--edit" data-action="edit" data-post-id="1">
-              <span class="btn__label">ویرایش</span>
-            </button>
-            <button type="button" class="btn btn--delete" data-action="delete" data-post-id="1">
-              <span class="btn__label">حذف</span>
-            </button>
-          </div>
-        </article> -->
-
-        <!-- Post Card #2 -->
       </div>
 
       <!-- Empty state (hidden by default, ready for future JS) -->
@@ -124,6 +90,7 @@
     </section>
 
   </div>
-    <script type="module" src="./js/app.js"></script>
+  <script type="module" src="./js/app.js"></script>
 </body>
+
 </html>

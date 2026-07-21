@@ -1,6 +1,5 @@
 import { Post } from "./post.js";
 import { Validator } from "./validator.js";
-
 export class MiniBlog {
     constructor(
         postList,
@@ -8,6 +7,9 @@ export class MiniBlog {
         titleInput,
         authorInput,
         contentInput,
+        characterCounter,
+        postsCount,
+        notification,
         fieldError
     ) {
         this.postList = postList;
@@ -16,6 +18,12 @@ export class MiniBlog {
         this.titleInput = titleInput;
         this.authorInput = authorInput;
         this.contentInput = contentInput;
+
+        this.notification = notification;
+
+        this.characterCounter = characterCounter;
+
+        this.postsCount = postsCount;
 
         this.fieldError = fieldError;
 
@@ -37,10 +45,35 @@ export class MiniBlog {
                 Date.now()
             )
         ];
+
+        this.fields = [
+            {
+                input: this.titleInput,
+                field: "title",
+                min: 5,
+                max: 40
+            },
+
+            {
+                input: this.authorInput,
+                field: "author",
+                min: 3,
+                max: 30
+            },
+
+            {
+                input: this.contentInput,
+                field: "content",
+                min: 10,
+                max: 280
+            }
+        ];
     }
 
     init() {
         this.renderPosts();
+        this.updatePostsCount();
+        this.updateCharacterCounter();
         this.bindEvents();
     }
 
@@ -102,7 +135,7 @@ export class MiniBlog {
 
         this.posts.push(post);
 
-        this.renderPosts();
+        this.refreshUI();
     }
 
     clearFields() {
@@ -146,7 +179,7 @@ export class MiniBlog {
 
         this.clearFields();
 
-        this.fieldError.clearAll();
+        this.notification.success("پست با موفقیت ایجاد شد.");
     }
 
     bindEvents() {
@@ -154,6 +187,29 @@ export class MiniBlog {
             "submit",
             this.handleSubmit.bind(this)
         );
+
+        this.fields.forEach(field => {
+            field.input.addEventListener(
+                "input",
+                () => {
+                    this.validateField(
+                        field.input,
+                        field.field,
+                        field.min,
+                        field.max
+                    )
+                }
+            )
+        });
+
+        this.contentInput.addEventListener("input", () => {
+            this.updateCharacterCounter();
+        });
+
+        this.postList.addEventListener(
+            'click',
+             this.handlePostActions.bind(this)
+        )
     }
 
     validateForm(formData) {
@@ -201,5 +257,68 @@ export class MiniBlog {
         }
 
         return this.validator.success();
+    }
+
+    validateField(input, fieldName, minLength, maxLength) {
+        const value = input.value.trim();
+        const result = this.validator.validate({
+            value: value,
+            fieldName: fieldName,
+            minLength: minLength,
+            maxLength: maxLength,
+        });
+
+        if (result.isValid) {
+            this.fieldError.clear(fieldName);
+        } else {
+            this.fieldError.show(fieldName, result.message);
+        }
+    }
+
+    updateCharacterCounter() {
+        const text = this.contentInput.value;
+        const lengthText = text.length;
+        this.characterCounter.textContent = `${lengthText} / 280`;
+        this.characterCounter.classList.remove("warning", "error");
+        if (lengthText >= 280) {
+            this.characterCounter.classList.add('error');
+        } else if (lengthText >= 224) {
+            this.characterCounter.classList.add('warning');
+        }
+    }
+
+    updatePostsCount() {
+        const numberOfPosts = this.posts.length;
+        this.postsCount.textContent = `(${numberOfPosts})`;
+    }
+
+    deletePost(id) {
+        this.posts = this.posts.filter(post => post.id !== id);
+
+        this.refreshUI();
+    }
+
+    refreshUI() {
+        this.renderPosts();
+        this.updatePostsCount();
+        this.updateCharacterCounter();
+    }
+
+    handlePostActions(e) {
+        const button = e.target.closest("button");
+
+        if (!button) return;
+
+        const action = button.dataset.action;
+        const postId = Number(button.dataset.postId);
+
+        if (action === "delete") {
+            this.deletePost(postId);
+            this.notification.success("پست با موفقیت حذف شد.");
+        }
+
+        if (action === "edit") {
+            console.log("Edit:", postId);
+        }
     }
 }
