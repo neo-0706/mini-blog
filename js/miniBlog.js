@@ -37,22 +37,7 @@ export class MiniBlog {
 
         this.validator = new Validator();
 
-        this.posts = [
-            new Post(
-                1,
-                "test",
-                "test title",
-                "lorem ipsum",
-                Date.now()
-            ),
-            new Post(
-                2,
-                "test",
-                "another title",
-                "lorem ipsum",
-                Date.now()
-            )
-        ];
+        this.posts = [];
 
         this.fields = [
             {
@@ -79,12 +64,10 @@ export class MiniBlog {
     }
 
     init() {
-        this.renderPosts();
-        this.updatePostsCount();
-        this.updateCharacterCounter();
+        this.loadPosts();
+        this.refreshUI();
         this.bindEvents();
     }
-
     renderPosts() {
         this.postList.innerHTML = "";
 
@@ -143,6 +126,8 @@ export class MiniBlog {
 
         this.posts.push(post);
 
+        this.savePosts();
+        
         this.refreshUI();
     }
 
@@ -319,6 +304,8 @@ export class MiniBlog {
     deletePost(id) {
         this.posts = this.posts.filter(post => post.id !== id);
 
+        this.savePosts();
+        
         this.refreshUI();
     }
 
@@ -326,6 +313,21 @@ export class MiniBlog {
         this.renderPosts();
         this.updatePostsCount();
         this.updateCharacterCounter();
+    }
+
+    savePosts() {
+        localStorage.setItem(
+            "posts",
+            JSON.stringify(this.posts)
+        );
+    }
+
+    loadPosts() {
+        const savedPosts = localStorage.getItem("posts");
+
+        if (!savedPosts) return;
+
+        this.posts = JSON.parse(savedPosts);
     }
 
     handlePostActions(e) {
@@ -365,12 +367,15 @@ export class MiniBlog {
         post.title = formData.title;
         post.content = formData.content;
 
-        this.refreshUI();
         this.notification.success('پست با موفقیت تغییر کرد');
         this.editingPostId = null;
-
+        
         this.clearFields();
         this.updateCharacterCounter();
+        
+        this.savePosts();
+        
+        this.refreshUI();
 
         this.setCreateMode();
     }
