@@ -8,7 +8,7 @@ The goal of this project is not only to build a blog application, but also to pr
 
 ## Preview
 
-> Frontend Version
+![Preview](./assets/interface.png)
 
 ---
 
@@ -135,11 +135,11 @@ or simply open `index.html` in your browser.
 - [x] Delete posts
 - [x] Form validation
 - [x] Notification system
-- [ ] Store posts in Local Storage
+- [x] Store posts in Local Storage
 - [ ] Build REST API with FastAPI
 - [ ] Connect frontend to backend
 - [ ] JWT Authentication
-- [ ] Deploy application
+- [x] Deploy application
 
 ---
 
@@ -176,6 +176,14 @@ This project is built to practice:
 - Backend integration
 
 ---
+
+---
+
+## 🌐 Live Demo
+
+You can check out the live preview of the project here:
+
+👉 **[View Live Demo](https://neo-0706.github.io/mini-blog/)**
 
 ## License
 
